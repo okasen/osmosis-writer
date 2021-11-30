@@ -27,17 +27,17 @@ class StartFunctions:
 
         save_action.triggered.connect(save)
 
-
-    def open_existing(self):
-        project, chapter_data = load(directory="test", title="test")
+    def open_existing(self, project_path: str):
+        project, chapter_data = load(directory=project_path)
         for chapter in chapter_data:
             title = chapter.title
             new_chapter_editor = ChapterWindow(title=title, scenes=chapter.scenes)
-            new_chapter = Chapter(title=title, window=new_chapter_editor)
-            project.chapters.append()
+            new_chapter = Chapter(title=title, window=new_chapter_editor, scenes=chapter.scenes)
+            project.chapters.append(new_chapter)
             self.main_window.mdi_layout.addSubWindow(new_chapter_editor)
             new_chapter.scenes = new_chapter_editor.scene_list
             # TODO add chapter to navigation
+        di[Project] = project
         self.main_window.show()
 
     def start_new(self, title: str, directory: str, chapter_title: str):

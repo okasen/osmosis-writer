@@ -1,9 +1,8 @@
 import sys
 from os.path import expanduser
-from pathlib import Path
 
 from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QWidget, QFileDialog, QDialog, QLabel, QApplication, QLineEdit
-from kink import inject, di
+from kink import inject
 
 from front_end.load_screen.views import StartFunctions
 
@@ -41,7 +40,7 @@ class StartWindow(QWidget):
             project_path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "OSM documents (*.osm)")
             if not project_path:
                 raise PathNotSetException("Please select an existing OSM project or start a new one.")
-            self.start_functions.open_existing()
+            self.start_functions.open_existing(project_path)
         except PathNotSetException as e:
             error_dialog = QDialog()
             error_layout = QVBoxLayout()
